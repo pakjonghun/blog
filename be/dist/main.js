@@ -13,7 +13,7 @@ async function bootstrap() {
         transformOptions: { enableImplicitConversion: true },
     }));
     app.enableCors();
-    await app.listen(8000);
+    await app.listen(process.env.PORT);
 }
 bootstrap();
 //# sourceMappingURL=main.js.map

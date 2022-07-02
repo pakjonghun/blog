@@ -1,10 +1,11 @@
 import React, { useCallback, useEffect } from "react";
-import { useRecoilState } from "recoil";
+import { useRecoilState, useRecoilValue } from "recoil";
 import Profile from "../../components/Profile";
 import useToggleMenu from "../../hooks/useToggleMenu";
 import {
   isLeftMenuHidingState,
   isLeftMenuShowState,
+  memoryScrollState,
 } from "../../recoil/home/atom";
 import { joinStyleClass } from "../../utils/styleUtils";
 
@@ -13,11 +14,17 @@ const LeftMenu = () => {
   const [isLeftMenuHiding, setIsLeftMenuHiding] = useRecoilState(
     isLeftMenuHidingState
   );
+  const scrollTop = useRecoilValue(memoryScrollState);
 
   useEffect(() => {
-    if (isShowMenu) document.body.style.overflow = "hidden";
-    else document.body.style.overflow = "auto";
-  }, [isShowMenu]);
+    if (isShowMenu) {
+      window.scrollTo({ top: 0 });
+      document.body.style.overflow = "hidden";
+    } else {
+      window.scrollTo({ top: scrollTop });
+      document.body.style.overflow = "auto";
+    }
+  }, [isShowMenu, scrollTop]);
 
   const onToggleMenu = useToggleMenu();
 

@@ -1,0 +1,39 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer components {
+  .scale-sm {
+    @apply hover:scale-105 active:scale-100;
+  }
+
+  .scale-xs {
+    @apply hover:scale-[101%] active:scale-100;
+  }
+
+  .focus-menu {
+    @apply hover:fill-gray-600 active:fill-gray-400;
+  }
+
+  .focus-menu-reverse {
+    @apply hover:fill-gray-100 active:fill-gray-400;
+  }
+}
+
+@layer base {
+  .html a {
+    @apply inline-block transition-all duration-75 font-medium underline opacity-70;
+  }
+
+  .html h2 {
+    @apply font-extrabold mt-6 mb-2 text-base;
+  }
+
+  .html li {
+    @apply list-disc ml-8 mb-1 text-sm font-medium;
+  }
+
+  .html pre {
+    @apply py-7 px-10 mt-2 mb-5 mx-2 max-h-[30rem] bg-gray-800 text-gray-200 overflow-scroll rounded-md shadow-md;
+  }
+}

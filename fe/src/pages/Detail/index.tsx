@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useLocation } from "react-router-dom";
 import { useRecoilValueLoadable } from "recoil";
 import MyStatus from "../../components/MyStatus";
@@ -13,6 +13,10 @@ const Detail = () => {
   const path = decodeURI(pathname).replace("/", "");
 
   const detail = useRecoilValueLoadable(getPostDeatilQuery(path));
+
+  useEffect(() => {
+    window.scrollTo({ top: 0 });
+  }, []);
 
   switch (detail.state) {
     case "loading":

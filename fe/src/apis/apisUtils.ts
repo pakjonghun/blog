@@ -15,7 +15,6 @@ export const makeUrl = ({ requestUrl, params = {} }: FetchPayload) => {
 };
 
 export const getFetch = async (payload: FetchPayload) => {
-  console.log("pay", payload);
   const response = await (await fetch(makeUrl(payload))).json();
   return response;
 };

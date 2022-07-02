@@ -13,6 +13,7 @@ async function bootstrap() {
         transformOptions: { enableImplicitConversion: true },
     }));
     app.enableCors();
+    console.log(process.env.PORT);
     await app.listen(process.env.PORT);
 }
 bootstrap();

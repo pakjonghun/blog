@@ -1,11 +1,10 @@
-import React, { useCallback, useEffect } from "react";
-import { useRecoilState, useRecoilValue } from "recoil";
+import React, { useCallback, useEffect, useRef } from "react";
+import { useRecoilState } from "recoil";
 import Profile from "../../components/Profile";
 import useToggleMenu from "../../hooks/useToggleMenu";
 import {
   isLeftMenuHidingState,
   isLeftMenuShowState,
-  memoryScrollState,
 } from "../../recoil/home/atom";
 import { joinStyleClass } from "../../utils/styleUtils";
 
@@ -14,14 +13,16 @@ const LeftMenu = () => {
   const [isLeftMenuHiding, setIsLeftMenuHiding] = useRecoilState(
     isLeftMenuHidingState
   );
-  const scrollTop = useRecoilValue(memoryScrollState);
+
+  const scrollTop = useRef<number>(0);
 
   useEffect(() => {
     if (isShowMenu) {
+      scrollTop.current = document.documentElement.scrollTop;
       window.scrollTo({ top: 0 });
       document.body.style.overflow = "hidden";
     } else {
-      window.scrollTo({ top: scrollTop });
+      window.scrollTo({ top: scrollTop.current });
       document.body.style.overflow = "auto";
     }
   }, [isShowMenu, scrollTop]);
@@ -41,7 +42,7 @@ const LeftMenu = () => {
         <>
           <div
             onClick={onToggleMenu}
-            className='absolute top-0 left-0 h-full w-screen backdrop-blur-sm backdrop-brightness-50 z-30'
+            className='absolute inset-0 h-full w-screen backdrop-blur-sm backdrop-brightness-50 z-30'
           />
           <div
             onAnimationEnd={onAnimationEnd}
@@ -49,7 +50,7 @@ const LeftMenu = () => {
               isLeftMenuHiding
                 ? "animate-[leftMenuHide_100ms_linear]"
                 : "animate-[leftMenuShow_100ms_linear]",
-              "absolute left-0 top-0 pl-5 pr-10 pt-7 h-full w-fit bg-gray-800 origin-left z-40 rounded-r-md shadow-md sm:pr-24"
+              "absolute top-0 left-0 pl-5 pr-10 pt-7 h-full w-fit bg-gray-800 origin-left z-40 rounded-r-md shadow-md sm:pr-24"
             )}
           >
             <button

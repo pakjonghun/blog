@@ -29,7 +29,7 @@ const Detail = () => {
       const md = new MarkdownIt();
       const post = md.render(detail.contents.body);
       return (
-        <section className='pt-3 pb-10 px-5 space-y-6 mx-auto max-w-screen-lg bg-gray-100'>
+        <section className='min-h-[100vh] pt-3 pb-10 px-5 space-y-6 mx-auto max-w-screen-lg bg-gray-100'>
           <Navigator canBack={true} />
           <PostTitle postTitle={detail.contents.id.replace(".md", "")} />
           <MyStatus mood='good' date={"asdf"} />

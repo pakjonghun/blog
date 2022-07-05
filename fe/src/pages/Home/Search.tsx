@@ -5,16 +5,14 @@ import { searchTermState } from "../../recoil/home/atom";
 
 const Search = () => {
   const [term, setTerm] = useRecoilState(searchTermState);
-  const [inputValue, setInputValue] = useState("");
+  const [inputValue, setInputValue] = useState(term);
 
   const timer = useRef<NodeJS.Timer | null>(null);
 
   const reset = useResetPostState();
-
   useEffect(() => {
     if (timer.current) clearTimeout(timer.current);
     timer.current = setTimeout(() => {
-      reset();
       setTerm(inputValue);
       timer.current = null;
     }, 300);
